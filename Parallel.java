@@ -1,5 +1,6 @@
 import java.io.File;
 import java.util.Scanner;
+import java.util.concurrent.ForkJoinPool;
 
 public class Parallel {
 	
@@ -82,11 +83,17 @@ public class Parallel {
 		return sum;
 	}
 	
+	static float sumArray(Tree[] array) {
+		return ForkJoinPool.commonPool().invoke(new SumArray(array,0,array.length));
+	}
 	
-	public static void main(String args[]) {
+    public static void main(String args[]) {
 		//get the inputs
 		//setUp(args[0]);
 		setUp("src/sample_input.txt");
+		float total = sumArray(trees);
+		/*System.out.println("Total: "+String.valueOf(total));
+		System.out.println("Avg: "+String.valueOf(total/trees.length));*/
 	}
 
 }
