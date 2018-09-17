@@ -3,7 +3,7 @@ public class Tree {
 	private int xPos;
 	private int yPos;
 	private int e;
-	private float totalSunlight;
+	private double totalSunlight;
 	
 	public Tree() {
 		xPos=0;
@@ -18,7 +18,7 @@ public class Tree {
 		this.e = e;
 	}
 	
-	public void updateTotal(float num) {
+	public void updateTotal(double num) {
 		totalSunlight += num;
 	}
 	
@@ -51,7 +51,7 @@ public class Tree {
 		e = num;
 	}
 	
-	public void setTotal(float num) {
+	public void setTotal(double num) {
 		totalSunlight = num;
 	}
 	
