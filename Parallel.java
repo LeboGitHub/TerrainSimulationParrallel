@@ -7,7 +7,7 @@ public class Parallel {
 	// variable used throughout the program
 	//array of trees and a terrain matrix(2D array)
 	static Tree [] trees;
-	static float [][] terrain;
+	static double [][] terrain;
 	static int terrainX;
 	static int terrainY;
 	/**
@@ -30,7 +30,7 @@ public class Parallel {
 			terrainY = sc.nextInt();
 			//create the terrain object
 			int inputs =0;
-			terrain = new float[terrainX][terrainY];
+			terrain = new double[terrainX][terrainY];
 			//populate the terrain matrix
 			for(int outter = 0 ; outter<terrainX ; outter++)
 				for(int inner = 0; inner < terrainY; inner++)
@@ -83,17 +83,18 @@ public class Parallel {
 		return sum;
 	}
 	
-	static float sumArray(Tree[] array) {
-		return ForkJoinPool.commonPool().invoke(new SumArray(array,0,array.length));
+	static double sumArray(Tree[] array) {
+		return (double) ForkJoinPool.commonPool().invoke(new SumArray(array,0,array.length));
 	}
 	
     public static void main(String args[]) {
 		//get the inputs
 		//setUp(args[0]);
 		setUp("src/sample_input.txt");
-		float total = sumArray(trees);
-		/*System.out.println("Total: "+String.valueOf(total));
-		System.out.println("Avg: "+String.valueOf(total/trees.length));*/
+		double total = (double)sumArray(trees);
+		System.out.println("Total: "+String.valueOf(total));
+		System.out.println(String.valueOf(trees.length)+ " Trees");
+		System.out.println("Avg: "+String.valueOf(total/trees.length));
 	}
 
 }
