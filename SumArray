@@ -3,7 +3,7 @@
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 
-public class SumArray extends RecursiveTask<Float>  {
+public class SumArray extends RecursiveTask<Double>  {
 	 static int SEQUENTIAL_THRESHOLD = 1000;
 	 int lo;
 	 int hi;
@@ -11,9 +11,9 @@ public class SumArray extends RecursiveTask<Float>  {
 	 
 	 SumArray(Tree[] a, int l, int h){lo =l; hi= h ;arr =a;}
 	 
-	 public Float compute() {
+	 public Double compute() {
 		 if(hi-lo <= SEQUENTIAL_THRESHOLD) {
-			 float ans = 0;
+			 double ans = 0;
 			 for(int i=lo; i<hi;i++) {
 				 float num = Parallel.canopySum(arr[i]);
 				 arr[i].setTotal(num);
@@ -24,8 +24,8 @@ public class SumArray extends RecursiveTask<Float>  {
 			 SumArray left = new SumArray(arr,lo,(hi+lo)/2);
 			 SumArray right = new SumArray(arr,(hi+lo)/2,hi);
 			 left.fork();
-			 float rightAns = right.compute();
-			 float leftAns = left.join();
+			 double rightAns = right.compute();
+			 double leftAns = left.join();
 			 return (leftAns + rightAns);
 		 }//end else
 	 }//end compute
