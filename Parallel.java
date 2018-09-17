@@ -3,11 +3,12 @@ import java.util.Scanner;
 
 public class Parallel {
 	
-	// variable used throughtout the program
+	// variable used throughout the program
 	//array of trees and a terrain matrix(2D array)
 	static Tree [] trees;
 	static float [][] terrain;
-	
+	static int terrainX;
+	static int terrainY;
 	/**
 	 * Method used to read data from a text files
 	 * @param input (The name/path of the text file)
@@ -16,7 +17,7 @@ public class Parallel {
 
 		//get the file name
 		String inputFileName = input;
-		int terrainX; int terrainY; 
+		//int terrainX; int terrainY; 
 		int numTrees=0;;
 		try {
 			//create a scanner to read from the text file
@@ -63,10 +64,20 @@ public class Parallel {
 	 * @return the total sunlight received by a tree
 	 */
 	public static float canopySum(Tree tree) {
+		//initialise values
 		float sum =0;
 		int xPos = tree.getXPos();
 		int yPos = tree.getYPos();
 		int extent = tree.getE();
+		
+		//get the total sunlight for a tree
+		for(int outter= xPos; outter<=(xPos+extent);outter++ )
+			for(int inner = yPos; inner <= (yPos+extent);inner++) {
+				//ensure that you do not go outside the bounds of the terrain
+				if((outter < terrainX)&&(inner < terrainY)) {
+					sum+= terrain[outter][inner];
+				}
+			}
 		
 		return sum;
 	}
