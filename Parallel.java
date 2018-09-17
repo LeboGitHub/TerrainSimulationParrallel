@@ -1,6 +1,8 @@
 import java.io.File;
 import java.util.Scanner;
 import java.util.concurrent.ForkJoinPool;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 public class Parallel {
 	
@@ -10,6 +12,7 @@ public class Parallel {
 	static double [][] terrain;
 	static int terrainX;
 	static int terrainY;
+	static double total;
 	/**
 	 * Method used to read data from a text files
 	 * @param input (The name/path of the text file)
@@ -87,14 +90,30 @@ public class Parallel {
 		return (double) ForkJoinPool.commonPool().invoke(new SumArray(array,0,array.length));
 	}
 	
+	public static void output(String name) {
+		String fileName = name;
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(fileName,true));
+			writer.write(String.valueOf(total/trees.length));
+			writer.write(String.valueOf(trees.length));
+			for(int iLoop =0; iLoop< trees.length; iLoop++) {
+				double sun = trees[iLoop].getTotal();
+				writer.write(String.valueOf(sun));
+			}
+			writer.close();
+		}catch(Exception e)
+		{
+			System.out.println("Cant write to missing file");
+			e.printStackTrace();
+			System.exit(0);
+		}
+	}
+	
     public static void main(String args[]) {
 		//get the inputs
 		//setUp(args[0]);
 		setUp("src/sample_input.txt");
 		double total = (double)sumArray(trees);
-		System.out.println("Total: "+String.valueOf(total));
-		System.out.println(String.valueOf(trees.length)+ " Trees");
-		System.out.println("Avg: "+String.valueOf(total/trees.length));
 	}
 
 }
