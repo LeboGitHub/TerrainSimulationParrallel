@@ -22,7 +22,7 @@ public class Tree {
 		totalSunlight += num;
 	}
 	
-	public float getTotal(){
+	public double getTotal(){
 		return totalSunlight;
 	}
 	
