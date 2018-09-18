@@ -75,8 +75,8 @@ public class Parallel {
 		int extent = tree.getE();
 		
 		//get the total sunlight for a tree
-		for(int outter= xPos; outter<=(xPos+extent);outter++ )
-			for(int inner = yPos; inner <= (yPos+extent);inner++) {
+		for(int outter= xPos; outter<=(xPos+extent-1);outter++ )
+			for(int inner = yPos; inner <= (yPos+extent-1);inner++) {
 				//ensure that you do not go outside the bounds of the terrain
 				if((outter < terrainX)&&(inner < terrainY)) {
 					sum+= terrain[outter][inner];
@@ -114,6 +114,8 @@ public class Parallel {
 		//setUp(args[0]);
 		setUp("src/sample_input.txt");
 		double total = (double)sumArray(trees);
+		System.out.println(String.valueOf(total/trees.length));
+		System.out.println(String.valueOf(trees.length));
 	}
 
 }
