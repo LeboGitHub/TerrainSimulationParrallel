@@ -13,6 +13,7 @@ public class Parallel {
 	static int terrainX;
 	static int terrainY;
 	static double total;
+	static double startTime;
 	/**
 	 * Method used to read data from a text files
 	 * @param input (The name/path of the text file)
@@ -109,13 +110,33 @@ public class Parallel {
 		}
 	}
 	
+	private static void tick() {
+		startTime = System.currentTimeMillis();
+	}
+	
+	private static double tock() {
+		return ((System.currentTimeMillis()-startTime)/1000.0f);
+	}
+	
+	public static void experiment() {
+		double startTime = 0;
+		tick();
+		double sum = sumArray(trees);
+		double time = tock();
+		System.out.println("Run took "+String.valueOf(time)+" seconds");
+		System.out.println("Sum is: " );
+		System.out.println(String.valueOf(sum));
+	}
+	
     public static void main(String args[]) {
 		//get the inputs
 		//setUp(args[0]);
 		setUp("src/sample_input.txt");
-		double total = (double)sumArray(trees);
+		total = (double)sumArray(trees);
 		System.out.println(String.valueOf(total/trees.length));
 		System.out.println(String.valueOf(trees.length));
+		//output(args[1]);
+		experiment();
 	}
 
 }
