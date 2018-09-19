@@ -12,6 +12,7 @@ public class Sequential {
 	static int terrainX;
 	static int terrainY;
 	static double total;
+	static double startTime;
 	/**
 	 * Method used to read data from a text files
 	 * @param input (The name/path of the text file)
@@ -103,9 +104,12 @@ public class Sequential {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
 			
 			writer.write(String.valueOf(total/trees.length));
+			writer.newLine();
 			writer.write(String.valueOf(trees.length));
+			writer.newLine();
 			for(int iLoop=0; iLoop< trees.length; iLoop++) {
 				writer.write(String.valueOf(trees[iLoop].getTotal()));
+				writer.newLine();
 			}
 			
 			writer.close();
@@ -117,11 +121,36 @@ public class Sequential {
 		
 	}
 	
+	private static void tick() {
+		startTime = System.currentTimeMillis();
+	}
+	
+	private static double tock() {
+		return ((System.currentTimeMillis()-startTime)/1000.0f);
+	}
+	
+	public static void experiment() {
+		/*tick();
+		double sum = sequentialSum();
+		double time = tock();*/
+		//System.out.println("1. "+String.valueOf(time));
+		for(int iLoop=1;iLoop<11;iLoop++) {
+			tick();
+			double sum = sequentialSum();
+			double time = tock();
+			System.out.println(String.valueOf(iLoop)+". "+String.valueOf(time));
+		}
+	}
+	
 	public static void main(String args[]) {
 		//get the inputs
 		//setUp(args[0]);
 		setUp("src/sample_input.txt");
 		total = sequentialSum();
+		System.out.println(String.valueOf(total/trees.length));
+		System.out.println(String.valueOf(trees.length));
+		experiment();
+		output("sequentialOutput.txt");
 		//output(args[1]);
 		
 	}
