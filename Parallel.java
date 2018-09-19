@@ -96,10 +96,13 @@ public class Parallel {
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(fileName,true));
 			writer.write(String.valueOf(total/trees.length));
+			writer.newLine();
 			writer.write(String.valueOf(trees.length));
+			writer.newLine();
 			for(int iLoop =0; iLoop< trees.length; iLoop++) {
 				double sun = trees[iLoop].getTotal();
 				writer.write(String.valueOf(sun));
+				writer.newLine();
 			}
 			writer.close();
 		}catch(Exception e)
@@ -120,12 +123,19 @@ public class Parallel {
 	
 	public static void experiment() {
 		double startTime = 0;
-		tick();
-		double sum = sumArray(trees);
-		double time = tock();
-		System.out.println("Run took "+String.valueOf(time)+" seconds");
-		System.out.println("Sum is: " );
-		System.out.println(String.valueOf(sum));
+		//tick();
+		//double sum = sumArray(trees);
+		//double time = tock();
+		//System.out.println("1. "+String.valueOf(time));
+		System.out.println("Parallel data");
+		for(int iLoop = 1; iLoop<11;iLoop++) {
+			tick();
+			double sum = sumArray(trees);
+			double time = tock();
+			System.out.println(String.valueOf(iLoop)+". "+ String.valueOf(time));
+		}
+		
+		
 	}
 	
     public static void main(String args[]) {
@@ -135,6 +145,7 @@ public class Parallel {
 		total = (double)sumArray(trees);
 		System.out.println(String.valueOf(total/trees.length));
 		System.out.println(String.valueOf(trees.length));
+		output("output.txt");
 		//output(args[1]);
 		experiment();
 	}
